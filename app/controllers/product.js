@@ -18,3 +18,6 @@ exports.update = (req, res) => {
   product.update(req, res);
   res.render("product/create", { layout: "layouts/admin" });
 };
+exports.detail = (req, res) => {
+  res.render("product/detail", { layout: "layouts/users" });
+};
