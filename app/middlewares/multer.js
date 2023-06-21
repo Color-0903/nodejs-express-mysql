@@ -3,7 +3,7 @@ const multer = require('multer');
 // Định nghĩa nơi lưu trữ hình ảnh
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'app/public/images/product');
+    cb(null, 'app/public');
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname);

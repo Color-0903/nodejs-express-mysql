@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const imagesFolder = 'app/public/images/product';
+const imagesFolder = 'app/public';
 
 const deleteImages = () => {
   fs.readdir(imagesFolder, (err, files) => {
