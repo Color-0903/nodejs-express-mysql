@@ -1,0 +1,156 @@
+
+<link rel="stylesheet" href="/styles/profile.css" />
+<div class="col-12 bg-white">
+    <h1 class="text-center py-4 text-primary">Tài khoản</h1>
+</div>
+<div class="container emp-profile pt-3 bg-light d-flex flex-wrap" style="padding-bottom: 80px;">
+    <div class="col-md-4 col-sm-3 col-12">
+        <div class="profile-img ">
+            <img
+                src="https://tailieu.nepc.edu.vn/themes/cynoebook/public/images/default-user-image.png"
+                alt=".." class="rounded-circle mb-2" style="max-width: 120px;"/>
+        </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item col-sm-12">
+                <a class="nav-link active text-dark" id="home-tab"
+                    data-toggle="tab" href="#home" role="tab"
+                    aria-controls="home" aria-selected="true"><i class="fa-solid fa-user"></i> Tài khoản</a>
+            </li>
+            <li class="nav-item col-sm-12">
+                <a class="nav-link text-dark" id="order-tab"
+                    data-toggle="tab" href="#order" role="tab"
+                    aria-controls="order" aria-selected="false"><i class="fa-solid fa-cart-shopping"></i> Đơn hàng</a>
+            </li>
+            <li class="nav-item col-sm-12">
+                <a class="nav-link text-dark" id="history-tab"
+                    data-toggle="tab" href="#history" role="tab"
+                    aria-controls="history" aria-selected="false"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-8 col-sm-9 col-12 ps-4 py-3">
+        <div class="profile-head">
+            <h5>
+                Tên đăng nhập: <%= user.name %>
+            </h5>
+            <h6>
+                Tên người dùng: <%= user.fullName ? user.fullName : 'Chưa cập nhật' %>
+            </h6>
+            <hr>
+        </div>
+        <div style="min-height: 300px;">
+            <div class="tab-content profile-tab" id="myTabContent">
+
+                <!-- Profile -->
+                <div class="tab-pane fade show active" id="home"
+                    role="tabpanel" aria-labelledby="home-tab">
+                    <h5 class="text-center py-2">Thông tin tài khoản</h5>
+                    <form class="mt-0" action="/profile/update" method="post">
+                        <div class="form-outline form-white mb-2">
+                            <label for="">Họ Tên:</label>
+                            <input type="text" id="typeName"
+                                class="form-control form-control-md mt-1"
+                                placeholder="Họ Tên" name="fullName" value="<%= user.fullName ? user.fullName : '' %>"/>
+                        </div>
+                        <div class="form-outline form-white mb-2">
+                            <label for="">Số điên thoại:</label>
+                            <input type="text" id="typeText"
+                                class="form-control form-control-md mt-1" siez="17"
+                                placeholder="Số điện thoại" minlength="10"
+                                maxlength="13" name="phone" value="<%= user.phone ? user.phone : '' %>"/>
+                        </div>
+                        <div class="form-outline form-white mb-2">
+                            <label for="">Địa chỉ:</label>
+                            <input type="text" id="typeAddress"
+                                class="form-control form-control-md mt-1" siez="17"
+                                placeholder="Địa chỉ" minlength="10"
+                                name="address" value="<%= user.address ? user.address : '' %>"/>
+                        </div>
+                        <button type="submit"
+                            class="btn btn-primary btn-block">
+                            <div class="d-flex justify-content-between">
+                                <span>Cập nhật</span>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+                <!-- Order -->
+                <div class="tab-pane fade profile-wrap-item" id="order" role="tabpanel"
+                    aria-labelledby="order-tab" style="height: 300px;overflow-y: scroll;">
+                    <% orders.forEach(function(item) { %>
+                        <div class="card mb-2 mb-lg-0">
+                            <div class="card-body custom-scrollbar-x">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div>
+                                            <img
+                                                src=<%= item.Product.THUMBNAIL %>
+                                                class="img-fluid rounded-3"
+                                                alt="Shopping item"
+                                                style="width: 65px;">
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5><%= item.Product.NAME %></h5>
+                                            <p class="small mb-0 limit-text"><%= item.Product.DES %></p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div style="width: 50px;">
+                                            <h5 class="fw-normal mb-0"><%= item.SIZE %></h5>
+                                        </div>
+                                        <div style="width: 80px;">
+                                            <h5 class="mb-0"><%= item.PRICE %></h5>
+                                        </div>
+                                        <% if (item.STATUS == 0) { %>
+                                            <p class="text-danger mb-0">Chờ xác nhận</p>
+                                          <% } else if(item.STATUS == 1) { %>
+                                            <p class="text-warning mb-0">Đã xác nhận</p>
+                                          <% }else { %>
+                                            <a href="#" class="btn btn-primary">Hoàn thành</a>
+                                          <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+
+                <!-- History -->
+                <div class="tab-pane fade profile-wrap-item" id="history" role="tabpanel"
+                    aria-labelledby="history-tab" style="height: 300px;overflow-y: scroll;">
+                    <% history.forEach(function(item) { %>
+                        <div class="card mb-2 mb-lg-0">
+                            <div class="card-body custom-scrollbar-x">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div>
+                                            <img
+                                                src=<%= item.Product.THUMBNAIL %>
+                                                class="img-fluid rounded-3"
+                                                alt="Shopping item"
+                                                style="width: 65px;">
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5><%= item.Product.NAME %></h5>
+                                            <p class="small mb-0 limit-text"><%= item.Product.DES %></p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div style="width: 50px;">
+                                            <h5 class="fw-normal mb-0"><%= item.SIZE %></h5>
+                                        </div>
+                                        <div style="width: 80px;">
+                                            <h5 class="mb-0"><%= item.PRICE %></h5>
+                                        </div>
+                                        <a href="#" class="nav-link link-danger">Xóa</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%-include('../components/notification') %>

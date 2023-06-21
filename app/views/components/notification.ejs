@@ -1,0 +1,9 @@
+<% if (typeof notification !== 'undefined') { %>
+    <div id="notification" class="alert alert-<%= notification.type %> alert-dismissible fade show" style="position: fixed;top: 40px; right: 0;" role="alert">
+        <%= notification.messenger %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true" class="text-danger">&times;</span>
+        </button>
+    </div>
+<% } %>
+<script src="/js/notification.js"></script>

@@ -1,7 +1,10 @@
-const home = require("../models/home");
+const product = require("../models/product");
 
+exports.index = async (req, res) => {
+  const list = await product.getList();
+  res.render("index", { layout: "layouts/users", products: list });
+};
 
-
-exports.index = (req, res) => {
-  res.render("index", { layout: "layouts/users" });
+exports.about = (req, res) => {
+  res.render("home/contact", { layout: "layouts/users" });
 };
